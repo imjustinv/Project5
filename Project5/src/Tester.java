@@ -5,5 +5,6 @@ public class Tester {
 
 	public static void print() {
 		System.out.println("Hi?");
+		System.out.println('h');
 	}
 }
