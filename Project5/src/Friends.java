@@ -15,6 +15,7 @@ public class Friends {
 		
 		System.out.println("Please input file name.");
 		String input = sc.nextLine();
+		ArrayList<Node> Graph = GraphBuild(input);
 		
 		System.out.println("Select option: 1. Shortest Path 2. Cliques 3. Connectors 4. Quit ");
 		input = sc.nextLine();
@@ -39,24 +40,24 @@ public class Friends {
 		}
 	}
 	
-	static void GraphBuild(String fileName){
-		
+	static ArrayList<Node> GraphBuild(String fileName){
+		ArrayList<Node> Graph = new ArrayList<Node>();
+			Scanner sc1 = new Scanner(fileName);
+			String line = sc1.nextLine();
+			while (sc1.hasNext()){
+				line =  sc1.nextLine();
+				for (int i = 0; i < line.length()-1; i++){
+					if(line.charAt(i) == '|'){
+						System.out.println("At " + i);
+						break;
+					}
+				}
+			}
+		return Graph;
 	}
 
 }
 
-class Node{
-	String name;
-	String school;
-	ArrayList <Node> adjacent;
-	int vNumber;
-	
-	Node (String name, String school, ArrayList<Node> adjacent, int vNumber){
-		this.name = name;
-		this.school = school;
-		this.adjacent = adjacent;
-		this.vNumber = vNumber;
-	}
-}
+
 
 
