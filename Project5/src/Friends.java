@@ -25,25 +25,37 @@ public class Friends {
 	public String findCliques(String school) {
 		ArrayList<User> visited = new ArrayList<User>();
 		ArrayList<ArrayList<User>> cliques = new ArrayList<ArrayList<User>>();
-		boolean isVisit = false;
-		for (User n : users) { 
-			if (visited.size() != users.size()) {
-				for (User l : visited) {
-					// if node has already been visited
-					if (n.name.equals(l.name)) {
-						isVisit = true;
-						break;
-					} else {
-
+		
+		for (User n : users){
+			//if user hasn't been visited
+			if (!isVisited(n, visited)){
+				if (n.school.equals(school)){
+					ArrayList<User> temp = new ArrayList<User>();
+					temp.add(n);
+					for (User l : n.friends){
+						if (!isVisited(l, visited)){
+							if (l.school.equals(school)){
+								temp.add(l);
+							}
+						}
 					}
 				}
-			} else {
-
 			}
 		}
+		
 		return null;
 	}
 
+	public boolean isVisited(User n, ArrayList<User> visited){
+		for (User l : visited){
+			if (n.name.equals(l.name)){
+				return true;
+			}
+		}
+		visited.add(n);
+		return false;
+	}
+	
 	public String findConnectors() {
 		return null;
 	}
