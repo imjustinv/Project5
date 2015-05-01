@@ -80,26 +80,6 @@ public class Friends {
 	}
 
 	public String findCliques(String school) {
-		ArrayList<User> visited = new ArrayList<User>();
-		ArrayList<ArrayList<User>> cliques = new ArrayList<ArrayList<User>>();
-		
-		for (User n : users){
-			//if user hasn't been visited
-			if (!isVisited(n, visited)){
-				if (n.school.equals(school)){
-					ArrayList<User> temp = new ArrayList<User>();
-					temp.add(n);
-					for (User l : n.friends){
-						if (!isVisited(l, visited)){
-							if (l.school.equals(school)){
-								temp.add(l);
-							}
-						}
-					}
-				}
-			}
-		}
-		
 		return null;
 	}
 
