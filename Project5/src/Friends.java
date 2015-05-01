@@ -14,7 +14,7 @@ public class Friends {
 
 	public Friends(String file) throws Exception {
 		users = build(file);
-		System.out.println(users);
+		System.out.println(dfs(users.get(0)));
 	}
 
 	public Friends(ArrayList<User> users) {
