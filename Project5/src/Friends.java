@@ -22,60 +22,59 @@ public class Friends {
 
 	public Stack<User> shortestPath(String name1, String name2) {
 		/**
-		 * Go through users find name1 set it's num to 1
-		 * add name1 to the stack
-		 * Goto the lowest neighbor
-		 * Set that vertex to 1+1= 2
-		 * add it to the stack
-		 * go to it's first non -1 neighbor
-		 * add it to the stack
-		 * and then so forth
-		 * every time you're going to check wether you've reached the end or the name2
+		 * Go through users find name1 set it's num to 1 add name1 to the stack
+		 * Goto the lowest neighbor Set that vertex to 1+1= 2 add it to the
+		 * stack go to it's first non -1 neighbor add it to the stack and then
+		 * so forth every time you're going to check wether you've reached the
+		 * end or the name2
 		 * 
-		 * Everytime you reach name2 create a linkedlist of all the things on the stack
-		 * create another stack with everything but name2 and pop elements of the stack until you reach the first element that has unexplored neighbors
+		 * Everytime you reach name2 create a linkedlist of all the things on
+		 * the stack create another stack with everything but name2 and pop
+		 * elements of the stack until you reach the first element that has
+		 * unexplored neighbors
 		 * 
 		 * Everytime your reach a dead end, pop elements...
 		 */
 		Stack<User> path = new Stack<User>();
 		Stack<User> shortest = new Stack<User>();
 		boolean noVisitedFriends = false;
-		for (User u : users){
-			if (u.name.equals(name1)){
+		for (User u : users) {
+			if (u.name.equals(name1)) {
 				u.vertexNumber = 1;
 				path.push(u);
 			}
 		}
-		
-		while (!path.empty()){
+
+		while (!path.empty()) {
 			noVisitedFriends = false;
-			for (User u : path.peek().friends){
-				//if the user is the last person of the path and has been unvisited or is the best path
-				if (u.name.equals(name2) && (u.vertexNumber > path.peek().vertexNumber+1 || u.vertexNumber == 0)){
+			for (User u : path.peek().friends) {
+				// if the user is the last person of the path and has been
+				// unvisited or is the best path
+				if (u.name.equals(name2)
+						&& (u.vertexNumber > path.peek().vertexNumber + 1 || u.vertexNumber == 0)) {
 					u.vertexNumber = path.peek().vertexNumber + 1;
 					path.push(u);
-					shortest = (Stack<User>)path.clone();
+					shortest = (Stack<User>) path.clone();
 					path.pop();
 					noVisitedFriends = true;
 					break;
 				}
-				
-				//if the user has been unvisited
-				else if (u.vertexNumber == 0){
+
+				// if the user has been unvisited
+				else if (u.vertexNumber == 0) {
 					u.vertexNumber = path.peek().vertexNumber + 1;
 					path.push(u);
 					noVisitedFriends = true;
 					break;
+				} else {
 				}
-				else{
-				}
-				
+
 			}
-			if (!noVisitedFriends){
+			if (!noVisitedFriends) {
 				path.pop();
 			}
 		}
-		
+
 		return shortest;
 	}
 
@@ -83,16 +82,16 @@ public class Friends {
 		return null;
 	}
 
-	public boolean isVisited(User n, ArrayList<User> visited){
-		for (User l : visited){
-			if (n.name.equals(l.name)){
+	public boolean isVisited(User n, ArrayList<User> visited) {
+		for (User l : visited) {
+			if (n.name.equals(l.name)) {
 				return true;
 			}
 		}
 		visited.add(n);
 		return false;
 	}
-	
+
 	public String findConnectors() {
 		return null;
 	}
@@ -151,7 +150,10 @@ public class Friends {
 
 		return users;
 	}
-	
+
+	public LinkedList<User> dfs(User u) {
+	}
+
 	public String toString() {
 		String str = null;
 		for (User u : users) {
