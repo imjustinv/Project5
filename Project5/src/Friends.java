@@ -94,6 +94,7 @@ public class Friends {
 				while (!tempclique.isEmpty()){
 					for (User friend : tempclique.peek().friends){
 						if (friend.vertexNumber == 0 && friend.school.equals(school)){
+							friend.vertexNumber = 1;
 							tempclique.add(friend);
 							temp.add(friend);
 						}
@@ -167,6 +168,17 @@ public class Friends {
 	}
 
 	public LinkedList<User> dfs(User u) {
+		Stack<User> s1 = new Stack<User>();
+		LinkedList<User> pathList = new LinkedList<User>();
+		s1.add(u);
+		u.vertexNumber = 1;
+		while (!s1.isEmpty()){
+			for (User friends : s1.peek().friends){
+				
+			}
+		}
+		
+		return pathList;
 	}
 
 	public String toString() {
