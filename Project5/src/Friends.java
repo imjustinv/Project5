@@ -14,23 +14,6 @@ public class Friends {
 
 	public Friends(String file) throws Exception {
 		users = build(file);
-		dfs(users.get(0));
-		System.out.println(users);
-		clear();
-		System.out.println(users);
-		System.out.println(findCliques("rutgers"));
-		clear();
-		System.out.println(findCliques("ucla"));
-		clear();
-		System.out.println(shortestPath("sam", "aparna"));
-		clear();
-		System.out.println(shortestPath("sam", "aparna"));
-		clear();
-		System.out.println(shortestPath("aparna", "sam"));
-		clear();
-		System.out.println(shortestPath("michele", "sam"));
-		clear();
-		System.out.println(findConnectors());
 	}
 
 	public Friends(ArrayList<User> users) {
@@ -52,6 +35,7 @@ public class Friends {
 		 * 
 		 * Everytime your reach a dead end, pop elements...
 		 */
+		clear();
 		Stack<User> path = new Stack<User>();
 		Stack<User> shortest = new Stack<User>();
 		boolean noVisitedFriends = false;
@@ -96,7 +80,13 @@ public class Friends {
 	}
 
 	public ArrayList<ArrayList<User>> findCliques(String school) {
-
+		/*
+		 * Finds cliques via breadth first search.
+		 * Returns ArrayList<ArrayList<User>>. The vertexNumber was used to determine
+		 * visited nodes. Any nodes that haven't been visited and are adjacent to the
+		 * first in the queue are added to the queue's tempClique.
+		 */
+		clear();
 		ArrayList<ArrayList<User>> cliques = new ArrayList<ArrayList<User>>();
 		Queue<User> tempclique = new LinkedList<User>();
 
@@ -128,6 +118,14 @@ public class Friends {
 	}
 
 	public LinkedList<User> findConnectors() {
+		/*
+		 * Returns LinkedList of Users that are determined connectors
+		 * It was determined that in order to find connectors a for loop that iterates
+		 * the user list was needed. Every user would be tested as a connector by comparing
+		 * whether or not it had the same adjacents in the list if it were taken out of the
+		 * graph.
+		 */
+		clear();
 		LinkedList<User> listOfConnectors = new LinkedList<User>();
 		for (int i = 0; i < users.size(); i++) {
 			clear();
@@ -157,14 +155,18 @@ public class Friends {
 	}
 
 	public ArrayList<User> build(String filename) throws Exception {
+		/*
+		 * Builds the tree using the given file format.
+		 */
 		ArrayList<User> users = new ArrayList<User>();
-
 		Scanner sc1 = new Scanner(new File(filename));
 		String line = sc1.nextLine();
+		line = line.toLowerCase();
 		int numOfStudents = Integer.parseInt(line);
 
 		for (int j = 0; j < numOfStudents; j++) {
 			line = sc1.nextLine();
+			line = line.toLowerCase();
 			for (int i = 0; i < line.length(); i++) {
 				if (line.charAt(i) == '|') {
 					// if student
@@ -188,6 +190,7 @@ public class Friends {
 		}
 		while (sc1.hasNext()) {
 			line = sc1.nextLine();
+			line = line.toLowerCase();
 			String name1 = line.substring(0, line.indexOf('|'));
 			String name2 = line.substring(line.indexOf('|') + 1, line.length());
 			User ptr1 = null;
@@ -212,6 +215,10 @@ public class Friends {
 	}
 
 	public LinkedList<User> dfs(User u) {
+		/*
+		 * This dfs method provides easier access to depth first search using stacks.
+		 * 
+		 */
 		Stack<User> s1 = new Stack<User>();
 		LinkedList<User> pathList = new LinkedList<User>();
 		boolean noVisitedFriends = false;
@@ -242,6 +249,10 @@ public class Friends {
 	}
 
 	public void clear() {
+		/*
+		 * Resets all the vertexNumbers to 0. This is so that it is possible to use them as boolean
+		 * values or trackers.
+		 */
 		for (User u : users) {
 			u.vertexNumber = 0;
 		}
@@ -278,16 +289,30 @@ public class Friends {
 				System.out
 						.println("Please enter the name of the second person");
 				String name2 = sc.nextLine();
-				System.out.println(f.shortestPath(name1, name2));
+				name1 = name1.toLowerCase();
+				name2 = name2.toLowerCase();
+				if (f.shortestPath(name1,name2).empty()){
+					System.out.println("Sorry, those names were not found.");
+				}
+				else{
+					System.out.println(f.shortestPath(name1, name2));
+				}
 			} else if (input.equals("2")) {
 				System.out.println("Clique finder");
 				System.out
 						.println("What school are you trying to find cliques in?");
 				String school = sc.nextLine();
-				System.out.println(f.findCliques(school));
+				school = school.toLowerCase();
+				if (f.findCliques(school).isEmpty()){
+					System.out.println("Sorry, there were no cliques in that school.");
+				}
+				else{
+					System.out.println(f.findCliques(school));
+				}
 			} else if (input.equals("3")) {
 				System.out.println("Find Connectors");
 				System.out.println(f.findConnectors());
+				break;
 			} else {
 				System.out.println("Not a viable option. Pick another.");
 				input = sc.nextLine();
