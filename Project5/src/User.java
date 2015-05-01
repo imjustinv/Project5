@@ -20,4 +20,8 @@ public class User {
 	public void addFriend(User u) {
 		friends.add(u);
 	}
+	
+	public String toString(){
+		return name + "|" + school + "|" + vertexNumber;
+	}
 }

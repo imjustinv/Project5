@@ -14,7 +14,23 @@ public class Friends {
 
 	public Friends(String file) throws Exception {
 		users = build(file);
-		System.out.println(dfs(users.get(0)));
+		dfs(users.get(0));
+		System.out.println(users);
+		clear();
+		System.out.println(users);
+		System.out.println(findCliques("rutgers"));
+		clear();
+		System.out.println(findCliques("ucla"));
+		clear();
+		System.out.println(shortestPath("sam", "aparna"));
+		clear();
+		System.out.println(shortestPath("sam", "aparna"));
+		clear();
+		System.out.println(shortestPath("aparna", "sam"));
+		clear();
+		System.out.println(shortestPath("michele", "sam"));
+		clear();
+		System.out.println(findConnectors());
 	}
 
 	public Friends(ArrayList<User> users) {
@@ -80,25 +96,28 @@ public class Friends {
 	}
 
 	public ArrayList<ArrayList<User>> findCliques(String school) {
-		
+
 		ArrayList<ArrayList<User>> cliques = new ArrayList<ArrayList<User>>();
 		Queue<User> tempclique = new LinkedList<User>();
-		
-		for (User u : users){
-			if (u.vertexNumber == 0 && u.school.equals(school)){
-				
+
+		for (User u : users) {
+			if (u.vertexNumber == 0 && u.school != null
+					&& u.school.equals(school)) {
+
 				ArrayList<User> temp = new ArrayList<User>();
 				temp.add(u);
 				tempclique.add(u);
-				
-				while (!tempclique.isEmpty()){
-					for (User friend : tempclique.peek().friends){
-						if (friend.vertexNumber == 0 && friend.school.equals(school)){
+				u.vertexNumber = 1;
+
+				while (!tempclique.isEmpty()) {
+					for (User friend : tempclique.peek().friends) {
+						if (friend.vertexNumber == 0 && friend.school != null
+								&& friend.school.equals(school)) {
 							friend.vertexNumber = 1;
 							tempclique.add(friend);
 							temp.add(friend);
 						}
-						
+
 					}
 					tempclique.remove();
 				}
@@ -108,8 +127,33 @@ public class Friends {
 		return cliques;
 	}
 
-	public String findConnectors() {
-		return null;
+	public LinkedList<User> findConnectors() {
+		LinkedList<User> listOfConnectors = new LinkedList<User>();
+		for (int i = 0; i < users.size(); i++) {
+			clear();
+			if (users.get(i).friends.size() <= 1) {
+				continue;
+			} else {
+				users.get(i).vertexNumber = 1;
+				LinkedList<User> rest = dfs(users.get(i).friends.get(0));
+				LinkedList<User> compare = new LinkedList<User>();
+				for (int g = 1; g < users.get(i).friends.size(); g++) {
+					compare.add(users.get(i).friends.get(g));
+				}
+				
+				boolean notFound = false;
+				for (int g = 0; g < compare.size(); g++) {
+					if (!rest.contains(compare.get(g))) {
+						notFound = true;
+					}
+				}
+				
+				if (notFound) {
+					listOfConnectors.add(users.get(i));
+				}
+			}
+		}
+		return listOfConnectors;
 	}
 
 	public ArrayList<User> build(String filename) throws Exception {
@@ -171,31 +215,36 @@ public class Friends {
 		Stack<User> s1 = new Stack<User>();
 		LinkedList<User> pathList = new LinkedList<User>();
 		boolean noVisitedFriends = false;
-		
+
 		s1.push(u);
 		pathList.add(u);
 		u.vertexNumber = 1;
-		
-		while (!s1.isEmpty()){
+
+		while (!s1.isEmpty()) {
 			noVisitedFriends = false;
-			for (User friend : s1.peek().friends){
-				if (friend.vertexNumber == 0){
+			for (User friend : s1.peek().friends) {
+				if (friend.vertexNumber == 0) {
 					s1.push(friend);
-					pathList.add(u);
+					pathList.add(friend);
 					friend.vertexNumber = 1;
 					noVisitedFriends = true;
 					break;
-				}
-				else{
-					
+				} else {
+
 				}
 			}
-			if (!noVisitedFriends){
+			if (!noVisitedFriends) {
 				s1.pop();
 			}
 		}
-		
+
 		return pathList;
+	}
+
+	public void clear() {
+		for (User u : users) {
+			u.vertexNumber = 0;
+		}
 	}
 
 	public String toString() {
