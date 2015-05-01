@@ -20,7 +20,7 @@ public class Friends {
 		this.users = users;
 	}
 
-	public String shortestPath(String name1, String name2) {
+	public Stack<User> shortestPath(String name1, String name2) {
 		/**
 		 * Go through users find name1 set it's num to 1
 		 * add name1 to the stack
@@ -76,7 +76,7 @@ public class Friends {
 			}
 		}
 		
-		return null;
+		return shortest;
 	}
 
 	public String findCliques(String school) {
