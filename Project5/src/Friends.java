@@ -60,6 +60,7 @@ public class Friends {
 				else if (u.vertexNumber == 0){
 					u.vertexNumber = path.peek().vertexNumber + 1;
 					path.push(u);
+					break;
 				}
 				else{
 					path.pop();
