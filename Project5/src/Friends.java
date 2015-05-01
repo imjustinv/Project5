@@ -182,6 +182,7 @@ public class Friends {
 				if (friend.vertexNumber == 0){
 					s1.push(friend);
 					pathList.add(u);
+					friend.vertexNumber = 1;
 					noVisitedFriends = true;
 					break;
 				}
