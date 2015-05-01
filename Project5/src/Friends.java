@@ -51,7 +51,7 @@ public class Friends {
 			noVisitedFriends = false;
 			for (User u : path.peek().friends){
 				//if the user is the last person of the path and has been unvisited or is the best path
-				if (u.name.equals(name2) && u.vertexNumber < path.peek().vertexNumber+1){
+				if (u.name.equals(name2) && (u.vertexNumber > path.peek().vertexNumber+1 || u.vertexNumber == 0)){
 					u.vertexNumber = path.peek().vertexNumber + 1;
 					path.push(u);
 					shortest = (Stack<User>)path.clone();
