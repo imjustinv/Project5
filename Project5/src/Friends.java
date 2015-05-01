@@ -71,7 +71,7 @@ public class Friends {
 				}
 				
 			}
-			if (noVisitedFriends){
+			if (!noVisitedFriends){
 				path.pop();
 			}
 		}
