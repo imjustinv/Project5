@@ -19,6 +19,8 @@ public class Friends {
 	}
 
 	public String shortestPath(String name1, String name2) {
+		
+		
 		return null;
 	}
 
@@ -76,14 +78,14 @@ public class Friends {
 						String name = line.substring(0, i);
 						String school = line.substring(i + 3, line.length());
 						LinkedList<User> temp2 = new LinkedList<User>();
-						User temp = new User(name, school, temp2, j);
+						User temp = new User(name, school, temp2, 0);
 						Graph.add(temp);
 					}
 					// if not a student
 					else if (line.charAt(i + 1) == 'n') {
 						String name = line.substring(0, i);
 						LinkedList<User> temp2 = new LinkedList<User>();
-						User temp = new User(name, null, temp2, j);
+						User temp = new User(name, null, temp2, 0);
 						Graph.add(temp);
 					}
 				}
