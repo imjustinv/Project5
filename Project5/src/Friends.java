@@ -39,6 +39,7 @@ public class Friends {
 		 */
 		Stack<User> path = new Stack<User>();
 		Stack<User> shortest = new Stack<User>();
+		boolean noVisitedFriends = false;
 		for (User u : users){
 			if (u.name.equals(name1)){
 				u.vertexNumber = 1;
@@ -47,6 +48,7 @@ public class Friends {
 		}
 		
 		while (!path.empty()){
+			noVisitedFriends = false;
 			for (User u : path.peek().friends){
 				//if the user is the last person of the path and has been unvisited or is the best path
 				if (u.name.equals(name2) && u.vertexNumber < path.peek().vertexNumber+1){
@@ -54,6 +56,7 @@ public class Friends {
 					path.push(u);
 					shortest = (Stack<User>)path.clone();
 					path.pop();
+					noVisitedFriends = true;
 					break;
 				}
 				
@@ -61,11 +64,15 @@ public class Friends {
 				else if (u.vertexNumber == 0){
 					u.vertexNumber = path.peek().vertexNumber + 1;
 					path.push(u);
+					noVisitedFriends = true;
 					break;
 				}
 				else{
-					path.pop();
 				}
+				
+			}
+			if (noVisitedFriends){
+				path.pop();
 			}
 		}
 		
