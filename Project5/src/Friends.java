@@ -15,32 +15,40 @@ public class Friends {
 	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
-		
 		System.out.println("Please input file name.");
 		String input = sc.nextLine();
+		
+		//Reads file and builds it. Prints out the names|school as well as who the person's friends with.
 		ArrayList<Node> Graph = GraphBuild(input);
 		for (Node n : Graph){
 			System.out.println(n.name + "|"+ n.school);
+			for (Node l: n.adjacent){
+				System.out.println(n.name + " is friends with " + l.name);
+			}
 		}
+		
 		System.out.println("Select option: 1. Shortest Path 2. Cliques 3. Connectors 4. Quit ");
 		input = sc.nextLine();
 		
-		while (input.compareTo("4") != 0){
-			if (input.compareTo("1") == 0){
+		while (!input.equals("4")){
+			if (input.equals("1")){
 				System.out.println("You picked 1");
 				input = sc.nextLine();
 			}
-			else if (input.compareTo("2") == 0){
-				System.out.println("You picked 2");
+			else if (input.equals("2")){
+				System.out.println("Please type in a school.");
 				input = sc.nextLine();
+				Cliques(Graph, input);
 			}
-			else if (input.compareTo("3") == 0){
+			else if (input.equals("3")){
 				System.out.println("You picked 3");
 				input = sc.nextLine();
 			}
-			else{
+			else if (!input.equals("4")){
 				System.out.println("Not a viable option. Pick another.");
 				input = sc.nextLine();
+			}
+			else{
 			}
 		}
 	}
@@ -75,9 +83,53 @@ public class Friends {
 				}
 			}
 		}
+		while (sc1.hasNext()){
+			line = sc1.nextLine();
+			String name1 = line.substring(0, line.indexOf('|'));
+			String name2 = line.substring(line.indexOf('|')+1, line.length());
+			Node ptr1 = null;
+			Node ptr2 = null;
+			
+			// assigns the nodes to ptr variables
+			for(Node n : Graph){
+				if (name1.equals(n.name)){
+					ptr1 = n;
+				}
+				else if (name2.equals(n.name)){
+					ptr2 = n;
+				}
+			}
+			
+			if (ptr1 != null && ptr2 != null){
+				ptr1.adjacent.add(ptr2);
+				ptr2.adjacent.add(ptr1);
+			}
+		}
 		return Graph;
 	}
-
+	
+	static void Cliques (ArrayList<Node> Graph, String school){
+		ArrayList<Node> visited = new ArrayList<Node>();
+		ArrayList<ArrayList<Node>> cliques = new ArrayList<ArrayList<Node>>();
+		boolean isVisit = false;
+		for (Node n : Graph){
+			if (visited.size() != Graph.size()){
+				for (Node l : visited){
+					//if node has already been visited
+					if (n.name.equals(l.name)){
+						isVisit = true;
+						break;
+					}
+					else{
+						
+					}
+				}
+			}
+			else{
+				
+			}
+		}
+	}
 }
 
 
