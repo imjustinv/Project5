@@ -4,6 +4,7 @@
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -79,18 +80,32 @@ public class Friends {
 		return shortest;
 	}
 
-	public String findCliques(String school) {
-		return null;
-	}
-
-	public boolean isVisited(User n, ArrayList<User> visited){
-		for (User l : visited){
-			if (n.name.equals(l.name)){
-				return true;
+	public ArrayList<ArrayList<User>> findCliques(String school) {
+		
+		ArrayList<ArrayList<User>> cliques = new ArrayList<ArrayList<User>>();
+		Queue<User> tempclique = new LinkedList<User>();
+		
+		for (User u : users){
+			if (u.vertexNumber == 0 && u.school.equals(school)){
+				
+				ArrayList<User> temp = new ArrayList<User>();
+				temp.add(u);
+				tempclique.add(u);
+				
+				while (!tempclique.isEmpty()){
+					for (User friend : tempclique.peek().friends){
+						if (friend.vertexNumber == 0 && friend.school.equals(school)){
+							tempclique.add(friend);
+							temp.add(friend);
+						}
+						
+					}
+					tempclique.remove();
+				}
+				cliques.add(temp);
 			}
 		}
-		visited.add(n);
-		return false;
+		return cliques;
 	}
 	
 	public String findConnectors() {
