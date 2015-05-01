@@ -2,23 +2,22 @@
 //Parth Mehrotra
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Friends {
 
 	private ArrayList<User> users;
 
-	public Friends(String file) {
+	public Friends(String file) throws Exception {
 		users = build(file);
 	}
 
 	public Friends(ArrayList<User> users) {
 		this.users = users;
 	}
-	
+
 	public String shortestPath(String name1, String name2) {
 		return null;
 	}
@@ -27,62 +26,61 @@ public class Friends {
 		ArrayList<User> visited = new ArrayList<User>();
 		ArrayList<ArrayList<User>> cliques = new ArrayList<ArrayList<User>>();
 		boolean isVisit = false;
-		for (User n : Graph){
-			if (visited.size() != Graph.size()){
-				for (User l : visited){
-					//if node has already been visited
-					if (n.name.equals(l.name)){
+		for (User n : users) {
+			if (visited.size() != users.size()) {
+				for (User l : visited) {
+					// if node has already been visited
+					if (n.name.equals(l.name)) {
 						isVisit = true;
 						break;
-					}
-					else{
-						
+					} else {
+
 					}
 				}
-			}
-			else{
-				
+			} else {
+
 			}
 		}
+		return null;
 	}
-	
+
 	public String findConnectors() {
 		return null;
 	}
 
-	public ArrayList<User> build(String filename) {
+	public ArrayList<User> build(String filename) throws Exception {
 		ArrayList<User> Graph = new ArrayList<User>();
-		
-		Scanner sc1 = new Scanner(new File(fileName));
+
+		Scanner sc1 = new Scanner(new File(filename));
 		String line = sc1.nextLine();
 		int numOfStudents = Integer.parseInt(line);
-		
-		
-		for(int j = 0; j < numOfStudents; j++){
-			line =  sc1.nextLine();
-			for (int i = 0; i < line.length(); i++){
-				if(line.charAt(i) == '|'){
-					//if student
-					if (line.charAt(i+1) == 'y'){
-						String name = line.substring(0,i);
-						String school = line.substring(i+3,line.length());
-						ArrayList<User> temp2 = new ArrayList<User>();
-						User temp = new User (name, school, temp2, j);
+
+		for (int j = 0; j < numOfStudents; j++) {
+			line = sc1.nextLine();
+			for (int i = 0; i < line.length(); i++) {
+				if (line.charAt(i) == '|') {
+					// if student
+					if (line.charAt(i + 1) == 'y') {
+						String name = line.substring(0, i);
+						String school = line.substring(i + 3, line.length());
+						LinkedList<User> temp2 = new LinkedList<User>();
+						User temp = new User(name, school, temp2, j);
 						Graph.add(temp);
 					}
-					//if not a student
-					else if (line.charAt(i+1) == 'n'){
-						String name = line.substring(0,i);
-						ArrayList<User> temp2 = new ArrayList<User>();
-						User temp = new User (name, null, temp2, j);
+					// if not a student
+					else if (line.charAt(i + 1) == 'n') {
+						String name = line.substring(0, i);
+						LinkedList<User> temp2 = new LinkedList<User>();
+						User temp = new User(name, null, temp2, j);
 						Graph.add(temp);
 					}
 				}
 			}
+		}
 		return null;
 	}
-	
-	public static void main(String[] args) {
+
+	public static void main(String[] args) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Please input file for the graph.");
 		String input = sc.nextLine();
@@ -94,7 +92,7 @@ public class Friends {
 		input = sc.nextLine();
 
 		while (!input.equals("4")) {
-			if (input.equals("1")){
+			if (input.equals("1")) {
 				System.out.println("Shortest Path");
 				System.out
 						.println("Please enter the name of the starting person");
@@ -105,7 +103,8 @@ public class Friends {
 				System.out.println(f.shortestPath(name1, name2));
 			} else if (input.equals("2")) {
 				System.out.println("Clique finder");
-				System.out.println("What school are you trying to find cliques in?");
+				System.out
+						.println("What school are you trying to find cliques in?");
 				String school = sc.nextLine();
 				System.out.println(f.findCliques(school));
 			} else if (input.equals("3")) {
