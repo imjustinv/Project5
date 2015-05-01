@@ -53,13 +53,16 @@ public class Friends {
 					u.vertexNumber = path.peek().vertexNumber + 1;
 					path.push(u);
 					shortest = (Stack<User>)path.clone();
-					
+					path.pop();
 				}
 				
 				//if the user has been unvisited
 				else if (u.vertexNumber == 0){
 					u.vertexNumber = path.peek().vertexNumber + 1;
 					path.push(u);
+				}
+				else{
+					path.pop();
 				}
 			}
 		}
