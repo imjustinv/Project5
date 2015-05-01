@@ -170,11 +170,27 @@ public class Friends {
 	public LinkedList<User> dfs(User u) {
 		Stack<User> s1 = new Stack<User>();
 		LinkedList<User> pathList = new LinkedList<User>();
-		s1.add(u);
+		boolean noVisitedFriends = false;
+		
+		s1.push(u);
+		pathList.add(u);
 		u.vertexNumber = 1;
+		
 		while (!s1.isEmpty()){
-			for (User friends : s1.peek().friends){
-				
+			noVisitedFriends = false;
+			for (User friend : s1.peek().friends){
+				if (friend.vertexNumber == 0){
+					s1.push(friend);
+					pathList.push(u);
+					noVisitedFriends = true;
+					break;
+				}
+				else{
+					
+				}
+			}
+			if (noVisitedFriends){
+				s1.pop();
 			}
 		}
 		
