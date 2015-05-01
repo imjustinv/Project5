@@ -20,24 +20,28 @@ public class Friends {
 	}
 
 	public String shortestPath(String name1, String name2) {
+		/**
+		 * Go through users find name1 set it's num to 1
+		 * add name1 to the stack
+		 * Goto the lowest neighbor
+		 * Set that vertex to 1+1= 2
+		 * add it to the stack
+		 * go to it's first non -1 neighbor
+		 * add it to the stack
+		 * and then so forth
+		 * every time you're going to check wether you've reached the end or the name2
+		 * 
+		 * Everytime you reach name2 create a linkedlist of all the things on the stack
+		 * create another stack with everything but name2 and pop elements of the stack until you reach the first element that has unexplored neighbors
+		 * 
+		 * Everytime your reach a dead end, pop elements...
+		 */
 		return null;
 	}
 
 	public String findCliques(String school) {
 		ArrayList<User> visited = new ArrayList<User>();
 		ArrayList<ArrayList<User>> cliques = new ArrayList<ArrayList<User>>();
-<<<<<<< HEAD
-		boolean isVisit = false;
-		for (User n : users) {
-			if (visited.size() != users.size()) {
-				for (User l : visited) {
-					// if node has already been visited
-					if (n.name.equals(l.name)) {
-						isVisit = true;
-						break;
-					} else {
-
-=======
 		
 		for (User n : users){
 			//if user hasn't been visited
@@ -51,7 +55,6 @@ public class Friends {
 								temp.add(l);
 							}
 						}
->>>>>>> 449a7e552d44791570a1b2a346da3800879591cb
 					}
 				}
 			}
