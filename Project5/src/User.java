@@ -9,7 +9,7 @@ public class User {
 	public User(String name) {
 		this.name = name;
 	}
-	
+
 	public User(String name, String school, LinkedList<User> friends, int vertexNumber) {
 		this.name = name;
 		this.school = school;
