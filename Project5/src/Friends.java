@@ -26,7 +26,7 @@ public class Friends {
 		ArrayList<User> visited = new ArrayList<User>();
 		ArrayList<ArrayList<User>> cliques = new ArrayList<ArrayList<User>>();
 		boolean isVisit = false;
-		for (User n : users) {
+		for (User n : users) { 
 			if (visited.size() != users.size()) {
 				for (User l : visited) {
 					// if node has already been visited
@@ -77,6 +77,35 @@ public class Friends {
 				}
 			}
 		}
+		while (sc1.hasNext()){
+			line = sc1.nextLine();
+			String name1 = line.substring(0, line.indexOf('|'));
+			String name2 = line.substring(line.indexOf('|')+1, line.length());
+			User ptr1 = null;
+			User ptr2 = null;
+			
+			// assigns the nodes to ptr variables
+			for(User n : Graph){
+				if (name1.equals(n.name)){
+					ptr1 = n;
+				}
+				else if (name2.equals(n.name)){
+					ptr2 = n;
+				}
+			}
+			
+			if (ptr1 != null && ptr2 != null){
+				ptr1.friends.add(ptr2);
+				ptr2.friends.add(ptr1);
+			}
+		}
+		
+		for (User u : Graph){
+			System.out.println(u.name + " goes to " +  u.school);
+				for (User f : u.friends){
+					System.out.println(u.name + " is friends with " + f.name);
+				}
+		}
 		return null;
 	}
 
@@ -86,7 +115,8 @@ public class Friends {
 		String input = sc.nextLine();
 
 		Friends f = new Friends(input);
-
+		
+		
 		System.out
 				.println("Select option: 1. Shortest Path 2. Cliques 3. Connectors 4. Quit ");
 		input = sc.nextLine();

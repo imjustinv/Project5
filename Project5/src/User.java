@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 public class User {
-	private LinkedList<User> friends;
+	LinkedList<User> friends;
 	String school;
 	String name;
 	int vertexNumber;
