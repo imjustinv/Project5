@@ -189,7 +189,7 @@ public class Friends {
 					
 				}
 			}
-			if (noVisitedFriends){
+			if (!noVisitedFriends){
 				s1.pop();
 			}
 		}
