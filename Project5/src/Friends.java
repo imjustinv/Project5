@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Friends {
 
@@ -36,6 +37,33 @@ public class Friends {
 		 * 
 		 * Everytime your reach a dead end, pop elements...
 		 */
+		Stack<User> path = new Stack<User>();
+		Stack<User> shortest = new Stack<User>();
+		for (User u : users){
+			if (u.name.equals(name1)){
+				u.vertexNumber = 1;
+				path.push(u);
+			}
+		}
+		
+		while (!path.empty()){
+			for (User u : path.peek().friends){
+				//if the user is the last person of the path and has been unvisited or is the best path
+				if (u.name.equals(name2) && u.vertexNumber < path.peek().vertexNumber+1){
+					u.vertexNumber = path.peek().vertexNumber + 1;
+					path.push(u);
+					shortest = (Stack<User>)path.clone();
+					
+				}
+				
+				//if the user has been unvisited
+				else if (u.vertexNumber == 0){
+					u.vertexNumber = path.peek().vertexNumber + 1;
+					path.push(u);
+				}
+			}
+		}
+		
 		return null;
 	}
 
