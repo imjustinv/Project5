@@ -181,7 +181,7 @@ public class Friends {
 			for (User friend : s1.peek().friends){
 				if (friend.vertexNumber == 0){
 					s1.push(friend);
-					pathList.push(u);
+					pathList.add(u);
 					noVisitedFriends = true;
 					break;
 				}
