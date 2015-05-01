@@ -54,6 +54,7 @@ public class Friends {
 					path.push(u);
 					shortest = (Stack<User>)path.clone();
 					path.pop();
+					break;
 				}
 				
 				//if the user has been unvisited
