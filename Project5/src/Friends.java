@@ -12,6 +12,7 @@ public class Friends {
 
 	public Friends(String file) throws Exception {
 		users = build(file);
+		System.out.println(users);
 	}
 
 	public Friends(ArrayList<User> users) {
@@ -26,7 +27,7 @@ public class Friends {
 		ArrayList<User> visited = new ArrayList<User>();
 		ArrayList<ArrayList<User>> cliques = new ArrayList<ArrayList<User>>();
 		boolean isVisit = false;
-		for (User n : users) { 
+		for (User n : users) {
 			if (visited.size() != users.size()) {
 				for (User l : visited) {
 					// if node has already been visited
@@ -49,7 +50,7 @@ public class Friends {
 	}
 
 	public ArrayList<User> build(String filename) throws Exception {
-		ArrayList<User> Graph = new ArrayList<User>();
+		ArrayList<User> users = new ArrayList<User>();
 
 		Scanner sc1 = new Scanner(new File(filename));
 		String line = sc1.nextLine();
@@ -65,48 +66,52 @@ public class Friends {
 						String school = line.substring(i + 3, line.length());
 						LinkedList<User> temp2 = new LinkedList<User>();
 						User temp = new User(name, school, temp2, j);
-						Graph.add(temp);
+						users.add(temp);
 					}
 					// if not a student
 					else if (line.charAt(i + 1) == 'n') {
 						String name = line.substring(0, i);
 						LinkedList<User> temp2 = new LinkedList<User>();
 						User temp = new User(name, null, temp2, j);
-						Graph.add(temp);
+						users.add(temp);
 					}
 				}
 			}
 		}
-		while (sc1.hasNext()){
+		while (sc1.hasNext()) {
 			line = sc1.nextLine();
 			String name1 = line.substring(0, line.indexOf('|'));
-			String name2 = line.substring(line.indexOf('|')+1, line.length());
+			String name2 = line.substring(line.indexOf('|') + 1, line.length());
 			User ptr1 = null;
 			User ptr2 = null;
-			
+
 			// assigns the nodes to ptr variables
-			for(User n : Graph){
-				if (name1.equals(n.name)){
+			for (User n : users) {
+				if (name1.equals(n.name)) {
 					ptr1 = n;
-				}
-				else if (name2.equals(n.name)){
+				} else if (name2.equals(n.name)) {
 					ptr2 = n;
 				}
 			}
-			
-			if (ptr1 != null && ptr2 != null){
+
+			if (ptr1 != null && ptr2 != null) {
 				ptr1.friends.add(ptr2);
 				ptr2.friends.add(ptr1);
 			}
 		}
-		
-		for (User u : Graph){
-			System.out.println(u.name + " goes to " +  u.school);
-				for (User f : u.friends){
-					System.out.println(u.name + " is friends with " + f.name);
-				}
+
+		return users;
+	}
+	
+	public String toString() {
+		String str = null;
+		for (User u : users) {
+			str += u.name + " goes to " + u.school + "\n";
+			for (User f : u.friends) {
+				str += u.name + " is friends with " + f.name + "\n";
+			}
 		}
-		return null;
+		return str;
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -115,8 +120,7 @@ public class Friends {
 		String input = sc.nextLine();
 
 		Friends f = new Friends(input);
-		
-		
+
 		System.out
 				.println("Select option: 1. Shortest Path 2. Cliques 3. Connectors 4. Quit ");
 		input = sc.nextLine();
